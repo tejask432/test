@@ -13,14 +13,21 @@ function send(){
 };
 
 $(document).ready( function(){
+    data();
+});
+function refresh(){
+    data();
+};
+
+function data(){
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             var json_obj = JSON.parse(this.responseText);
 
             var table = document.createElement("table");
-            
-            var col = [];
+            //extract the value for table heading
+            var col = [];                   //table column
             for (var i = 0; i < json_obj.length; i++) {
                 for (var key in json_obj[i]) {
                     if (col.indexOf(key) === -1) {
@@ -29,18 +36,17 @@ $(document).ready( function(){
                 }
             }
             
-            var tr = table.insertRow(-1);
+            //creating header using extracted column data
+            var tr = table.insertRow(-1);       //table row
 
             for (var i = 0; i < col.length; i++) {
-            var th = document.createElement("th");
-            th.innerHTML = col[i];
-            tr.appendChild(th);
+                var th = document.createElement("th");
+                th.innerHTML = col[i];
+                tr.appendChild(th);
             }
 
             for (var i = 0; i < json_obj.length; i++) {
-
                 tr = table.insertRow(-1);
-    
                 for (var j = 0; j < col.length; j++) {
                     var tabCell = tr.insertCell(-1);
                     tabCell.innerHTML = json_obj[i][col[j]];
@@ -73,5 +79,4 @@ $(document).ready( function(){
     };
     xmlhttp.open("GET", "data.php", true);
     xmlhttp.send();
-});
-
+};
