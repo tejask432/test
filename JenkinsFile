@@ -3,7 +3,7 @@ pipeline {
   stages {
     stage ('Git scm') {
       steps {
-        git branch: 'master', url: 'git@github.com:tejask432/test.git'
+        git branch: 'master', url: 'git@github.com:tejask432/test.git', credentialsId: 'MyGIT'
       }
     }
   }
